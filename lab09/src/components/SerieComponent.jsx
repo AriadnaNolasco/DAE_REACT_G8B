@@ -2,9 +2,10 @@ function SerieComponent(props) {
   return (
     <div className="card">
       <img
-        className="card-img-top"
-        src={"https://dummyimage.com/400x250/000/fff&text=" + props.imagen}
-        alt="img" />
+        className="card-img-top img-fluid"
+        src={`/img/${props.imagen}`}
+        alt={props.nombre} 
+        style={{ height: '250px', objectFit: 'cover' }}/>
       <div className="card-body">
         <h5 className="card-title">{props.nombre}</h5>
         <p className="card-text" > {props.categoria}</p >

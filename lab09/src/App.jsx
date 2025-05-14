@@ -1,4 +1,7 @@
-import SerieComponent from "./components/SerieComponent";
+import { useState } from 'react';
+import './App.css';
+import SerieComponent from './components/SerieComponent';
+import Cabecera from './components/Cabecera';
 import Footer from './components/Footer';
 
 function App() {

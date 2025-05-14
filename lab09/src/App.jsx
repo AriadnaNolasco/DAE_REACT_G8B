@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import './App.css';
 import SerieComponent from './components/SerieComponent';
+import Cabecera from './components/Cabecera';
+
 function App() {
   const series = [
     {cod:1, nom:"Friends", cat:"Comedy", img:"friends.png"},
@@ -12,6 +14,7 @@ function App() {
   ];
   return ( 
     <div className="container mt-3">
+      <Cabecera />
       <h1 className="border-bottom pb-3 mb-3">Series</h1>
       <div className="row">
         {series.map((serie)=>(

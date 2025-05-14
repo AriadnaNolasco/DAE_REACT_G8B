@@ -30,8 +30,9 @@
   
   /* Text Colors */
   --primary-text: var(--white-color);
-  --secondary-text: var(--shadow);
+  --light-primary-text: var(--black-color);
   
   /* Borders & Radius */
   --border-radius: calc(var(--size) * 2);
 }
+

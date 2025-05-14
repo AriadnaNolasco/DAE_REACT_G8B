@@ -4,6 +4,7 @@ import Header from './components/Header';
 import Hero from './components/Hero';
 import MovieList from './components/MovieList';
 import Footer from './components/Footer';
+import GenreFilter from './components/GenreFilter';
 import './css/index.css';
 
 const App = () => {

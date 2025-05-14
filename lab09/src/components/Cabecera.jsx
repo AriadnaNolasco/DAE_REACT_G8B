@@ -1,3 +1,4 @@
+// src/components/Cabecera.jsx
 function Cabecera() {
   return (
     <header className="bg-primary bg-gradient text-white text-center py-5 mb-4 shadow rounded">

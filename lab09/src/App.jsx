@@ -1,8 +1,12 @@
+// src/App.jsx
+
 import { useState } from 'react';
 import './App.css';
 import SerieComponent from './components/SerieComponent';
+import Menu from './components/Menu';  // Importar el componente Menu
 import Cabecera from './components/Cabecera';
 import Footer from './components/Footer';
+
 
 function App() {
   const series = [
@@ -16,6 +20,7 @@ function App() {
 
   return (
     <div className="container mt-3">
+      <Menu /> {/* Aquí se agrega el componente Menu */}
       <Cabecera />
       <h1 className="border-bottom pb-3 mb-3">Series</h1>
       <div className="row">
@@ -30,7 +35,7 @@ function App() {
           </div>
         ))}
       </div>
-      <Footer /> {/* Añadir Footer aquí */}
+      <Footer />
     </div>
   );
 }

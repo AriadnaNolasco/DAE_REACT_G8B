@@ -1,5 +1,4 @@
 import React from 'react';
-
 const GenreFilter = ({ genres, activeGenre, onGenreChange }) => {
   return (
     <div className="genre-filter">

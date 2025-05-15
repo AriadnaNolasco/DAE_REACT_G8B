@@ -3,7 +3,7 @@ import Rating from './Rating';
 
 const MovieCard = ({ movie }) => {
   const { title, rating, genre, duration, image, description, showTimes } = movie;
-  
+  //Props desde el componente MovieList(padre)
   return (
     <article className="card card--movie">
       <div className="card__header">

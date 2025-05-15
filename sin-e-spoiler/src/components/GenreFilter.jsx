@@ -1,11 +1,17 @@
-import React from 'react';
+// components/GenreFilter.jsx
 const GenreFilter = ({ genres, activeGenre, onGenreChange }) => {
   return (
-    <div className="genre-filter">
-      {genres.map(genre => (
+    <div className="genre-filter d-flex g-2 j-content-center f-wrap">
+      <button
+        className={`button ${!activeGenre ? 'button--primary' : ''}`}
+        onClick={() => onGenreChange(null)}
+      >
+        All
+      </button>
+      {genres.map((genre) => (
         <button
           key={genre}
-          className={`genre-filter__button ${activeGenre === genre ? 'genre-filter__button--active' : ''}`} // BEM: Bloque__Elemento--Modificador
+          className={`button ${activeGenre === genre ? 'button--primary' : ''}`}
           onClick={() => onGenreChange(genre)}
         >
           {genre}
@@ -16,3 +22,4 @@ const GenreFilter = ({ genres, activeGenre, onGenreChange }) => {
 };
 
 export default GenreFilter;
+

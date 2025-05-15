@@ -1,5 +1,6 @@
 // components/Rating.jsx - Star rating display
 const Rating = ({ value, maxValue = 5 }) => {
+    //Recibe props de su componente padre(MovieCard)
   const fullStars = Math.floor(value);
   const hasHalfStar = value % 1 !== 0;
   const emptyStars = maxValue - Math.ceil(value);

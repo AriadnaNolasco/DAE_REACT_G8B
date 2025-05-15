@@ -2,6 +2,7 @@
 import MovieCard from './MovieCard';
 
 const MovieList = ({ movies }) => {
+    //Props: movies - Array of movie objects
   return (
     <section id="movies" className="section section--movies">
       <div className="container">
@@ -10,6 +11,7 @@ const MovieList = ({ movies }) => {
         <div className="g-layout g-layout--auto-fit-columns">
           {movies.map(movie => (
             <MovieCard key={movie.id} movie={movie} />
+            //Forma unica de
           ))}
         </div>
       </div>

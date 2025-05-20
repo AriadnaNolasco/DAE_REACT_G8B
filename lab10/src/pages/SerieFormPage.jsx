@@ -1,6 +1,6 @@
 
 import { useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import HeaderComponent from "../components/HeaderComponent"
 
 
@@ -16,6 +16,7 @@ function SerieFormPage(){
     ];    
     
     const { idserie } = useParams();
+    const navigate = useNavigate();
     const setDataForm = (codigo) => {
         for (const item of series) {
             if(item.cod == codigo){
@@ -29,15 +30,12 @@ function SerieFormPage(){
     }    
     useEffect(()=>{
         setDataForm(idserie);
-    },[]);
+    },[idserie]);
 
+    const handleCancel = () => {
+        navigate("/series"); // Navigate back to the series list
+    };
 
-
-
-
-
-
-    
     return (
         <>
             <HeaderComponent />
@@ -73,7 +71,8 @@ function SerieFormPage(){
                             <input type="file" className="form-control" id="inputImage" required />
                         </div>
                         <div className="mb-3">
-                            <button className="btn btn-primary">Guardar</button>
+                            <button className="btn btn-primary me-2">Guardar</button>
+                            <button type="button" className="btn btn-secondary" onClick={handleCancel}>Cancelar</button>
                         </div>
                     </div>
                 </form>

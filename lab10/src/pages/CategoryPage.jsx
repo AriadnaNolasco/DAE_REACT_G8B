@@ -1,15 +1,15 @@
 import HeaderComponent from "../components/HeaderComponent";
 
 
-function CategoryPage(){
+function CategoryPage() {
     const categories = [
-        {cod:1, nom:"Horror"},
-        {cod:2, nom:"comedy"},
-        {cod:3, nom:"Action"},
-        {cod:4, nom:"Drama"},
-      ];
-      
-      return (
+        { cod: 1, nom: "Horror" },
+        { cod: 2, nom: "comedy" },
+        { cod: 3, nom: "Action" },
+        { cod: 4, nom: "Drama" },
+    ];
+
+    return (
         <>
             <HeaderComponent />
             <div className="container mt-3">
@@ -21,21 +21,21 @@ function CategoryPage(){
                         <tr>
                             <th>Nombre</th>
                             <th className="text-center">Id</th>
-                            <th className="text-center" style={{width: "100px"}}>Acciones</th>
+                            <th className="text-center" style={{ width: "100px" }}>Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {categories.map((item)=>(
+                        {categories.map((item) => (
                             <tr key={item.cod}>
                                 <td>{item.nom}</td>
                                 <td className="text-center">{item.cod}</td>
                                 <td className="text-center">
                                     <button className="btn btn-secondary me-2 btn-sm">
                                         <i className="bi bi-pencil-square"></i>
-                                    </button> 
+                                    </button>
                                     <button className="btn btn-danger btn-sm">
                                         <i className="bi bi-trash-fill"></i>
-                                    </button> 
+                                    </button>
                                 </td>
                             </tr>
                         ))}
@@ -43,7 +43,7 @@ function CategoryPage(){
                 </table>
             </div>
         </>
-      )
+    )
 }
 
 

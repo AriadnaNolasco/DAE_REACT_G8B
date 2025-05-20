@@ -3,7 +3,7 @@ import LoginPage from "./pages/LoginPage";
 import HomePage from "./pages/HomePage";
 import CategoryPage from "./pages/CategoryPage";
 import SeriePage from "./pages/SeriePage";
-import SeriePage from "./pages/SerieFormPage";
+import SerieFormPage from "./pages/SerieFormPage"; //
 
 function App() {
   return(

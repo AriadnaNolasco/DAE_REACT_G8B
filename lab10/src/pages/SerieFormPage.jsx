@@ -2,9 +2,9 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import HeaderComponent from "../components/HeaderComponent";
 
-function SerieFormPage({ series, setSeries }) {
+function SerieFormPage({ series, setSeries, categories }) {
   const navigate = useNavigate();
-  const { id } = useParams(); 
+  const { id } = useParams();
   const isEditing = parseInt(id) !== 0;
 
   const [nombre, setNombre] = useState("");
@@ -13,7 +13,7 @@ function SerieFormPage({ series, setSeries }) {
 
   useEffect(() => {
     if (isEditing) {
-      const found = series.find(s => s.cod === parseInt(id));
+      const found = series.find((s) => s.cod === parseInt(id));
       if (found) {
         setNombre(found.nom);
         setCategoria(found.cat);
@@ -26,19 +26,19 @@ function SerieFormPage({ series, setSeries }) {
     e.preventDefault();
 
     if (isEditing) {
-      const actualizadas = series.map(s =>
+      const actualizadas = series.map((s) =>
         s.cod === parseInt(id)
           ? { ...s, nom: nombre, cat: categoria, img: imagen }
           : s
       );
       setSeries(actualizadas);
     } else {
-      const nuevoId = Math.max(...series.map(s => s.cod)) + 1;
+      const nuevoId = series.length > 0 ? Math.max(...series.map((s) => s.cod)) + 1 : 1;
       const nuevaSerie = {
         cod: nuevoId,
         nom: nombre,
         cat: categoria,
-        img: imagen
+        img: imagen,
       };
       setSeries([...series, nuevaSerie]);
     }
@@ -85,10 +85,11 @@ function SerieFormPage({ series, setSeries }) {
                 required
               >
                 <option value="">Seleccione una opción</option>
-                <option value="Horror">Horror</option>
-                <option value="Comedy">Comedy</option>
-                <option value="Action">Action</option>
-                <option value="Drama">Drama</option>
+                {categories.map((cat) => (
+                  <option key={cat.cod} value={cat.nom}>
+                    {cat.nom}
+                  </option>
+                ))}
               </select>
             </div>
             <div className="mb-3">
@@ -108,8 +109,12 @@ function SerieFormPage({ series, setSeries }) {
               />
             </div>
             <div className="mb-3 d-flex gap-2">
-              <button className="btn btn-primary" type="submit">Guardar</button>
-              <button className="btn btn-secondary" type="button" onClick={handleCancel}>Cancelar</button>
+              <button className="btn btn-primary" type="submit">
+                Guardar
+              </button>
+              <button className="btn btn-secondary" type="button" onClick={handleCancel}>
+                Cancelar
+              </button>
             </div>
           </div>
         </form>

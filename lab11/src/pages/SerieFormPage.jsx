@@ -3,6 +3,22 @@ import { useState, useEffect } from "react";
 import HeaderComponent from "../components/HeaderComponent";
 
 function SerieFormPage({ series, setSeries }) {
+  // Creamos una constante con la estructura que enviaremos luego al servicio Web creado en Django.
+  const initData = {
+    cod: '',
+    nom: '',
+    cat: '',
+  };
+
+  // Definimos la variable de estado data y la función responsable de cambiar su estado
+  const [data, setData] = useState(initData);
+
+  // Función para manejar el cambio de la caja de texto del nombre
+  const onChangeNombre = (e) => {
+    const nData = { ...data, nom: e.target.value };
+    setData(nData);
+  };
+
   const navigate = useNavigate();
   const { id } = useParams(); 
   const isEditing = parseInt(id) !== 0;

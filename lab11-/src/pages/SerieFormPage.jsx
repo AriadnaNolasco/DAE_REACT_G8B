@@ -1,38 +1,22 @@
 import { useParams, useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import HeaderComponent from "../components/HeaderComponent";
 
 function SerieFormPage({ series, setSeries }) {
-  const initData = {
-    cod: '',
-    nom: '',
-    cat: '',
-  };
-
-  const [data, setData] = useState(initData);
-  const [imagen, setImagen] = useState("");
-
-  const onChangeNombre = (e) => {
-    setData({ ...data, nom: e.target.value });
-  };
-
-  const onChangeCategoria = (e) => {
-    setData({ ...data, cat: e.target.value });
-  };
-
   const navigate = useNavigate();
-  const { id } = useParams();
+  const { id } = useParams(); 
   const isEditing = parseInt(id) !== 0;
+
+  const [nombre, setNombre] = useState("");
+  const [categoria, setCategoria] = useState("");
+  const [imagen, setImagen] = useState("");
 
   useEffect(() => {
     if (isEditing) {
       const found = series.find(s => s.cod === parseInt(id));
       if (found) {
-        setData({
-          cod: found.cod,
-          nom: found.nom,
-          cat: found.cat,
-        });
+        setNombre(found.nom);
+        setCategoria(found.cat);
         setImagen(found.img);
       }
     }
@@ -44,17 +28,17 @@ function SerieFormPage({ series, setSeries }) {
     if (isEditing) {
       const actualizadas = series.map(s =>
         s.cod === parseInt(id)
-          ? { ...s, nom: data.nom, cat: data.cat, img: imagen }
+          ? { ...s, nom: nombre, cat: categoria, img: imagen }
           : s
       );
       setSeries(actualizadas);
     } else {
-      const nuevoId = Math.max(...series.map(s => s.cod), 0) + 1;
+      const nuevoId = Math.max(...series.map(s => s.cod)) + 1;
       const nuevaSerie = {
         cod: nuevoId,
-        nom: data.nom,
-        cat: data.cat,
-        img: imagen,
+        nom: nombre,
+        cat: categoria,
+        img: imagen
       };
       setSeries([...series, nuevaSerie]);
     }
@@ -73,35 +57,31 @@ function SerieFormPage({ series, setSeries }) {
         <div className="border-bottom pb-3 mb-3">
           <h3>{isEditing ? "Editar Serie" : "Nueva Serie"}</h3>
         </div>
-        <form onSubmit={handleSubmit} className="row">
+        <form className="row" onSubmit={handleSubmit}>
           <div className="col-md-4">
             <img
-              id="fileImg"
               className="card-img-top mb-3"
-              src={"https://dummyimage.com/400x250/000/fff"}
-              alt="img"
+              src={imagen || "https://dummyimage.com/400x250/000/fff&text=Imagen"}
+              alt="preview"
             />
           </div>
           <div className="col-md-8">
             <div className="mb-3">
-              <label htmlFor="inputName" className="form-label">Nombre</label>
+              <label className="form-label">Nombre</label>
               <input
                 type="text"
-                value={data.nom}
-                onChange={onChangeNombre}
                 className="form-control"
-                id="inputName"
+                value={nombre}
+                onChange={(e) => setNombre(e.target.value)}
                 required
               />
             </div>
-
             <div className="mb-3">
-              <label htmlFor="inputCategory" className="form-label">Categoría</label>
+              <label className="form-label">Categoría</label>
               <select
-                value={data.cat}
-                onChange={onChangeCategoria}
                 className="form-select"
-                id="inputCategory"
+                value={categoria}
+                onChange={(e) => setCategoria(e.target.value)}
                 required
               >
                 <option value="">Seleccione una opción</option>
@@ -111,7 +91,22 @@ function SerieFormPage({ series, setSeries }) {
                 <option value="Drama">Drama</option>
               </select>
             </div>
-
+            <div className="mb-3">
+              <label className="form-label">Seleccionar imagen</label>
+              <input
+                type="file"
+                className="form-control"
+                accept="image/*"
+                onChange={(e) => {
+                  const file = e.target.files[0];
+                  if (file) {
+                    const imageUrl = URL.createObjectURL(file);
+                    setImagen(imageUrl);
+                  }
+                }}
+                required={!isEditing && !imagen}
+              />
+            </div>
             <div className="mb-3 d-flex gap-2">
               <button className="btn btn-primary" type="submit">Guardar</button>
               <button className="btn btn-secondary" type="button" onClick={handleCancel}>Cancelar</button>

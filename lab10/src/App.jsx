@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useState, useEffect } from "react";
+import LoginPage from "./pages/LoginPage";
 import SeriePage from "./pages/SeriePage";
 import SerieFormPage from "./pages/SerieFormPage";
 import CategoryPage from "./pages/CategoryPage";
@@ -27,6 +28,7 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
+        <Route path="/" element={<LoginPage />} /> 
         <Route
           path="/series"
           element={<SeriePage series={series} setSeries={setSeries} />}
@@ -37,17 +39,27 @@ function App() {
             <SerieFormPage
               series={series}
               setSeries={setSeries}
-              categories={categories} // ⬅️ PASAMOS CATEGORÍAS AQUÍ
+              categories={categories}
             />
           }
         />
         <Route
           path="/categories"
-          element={<CategoryPage categories={categories} setCategories={setCategories} />}
+          element={
+            <CategoryPage
+              categories={categories}
+              setCategories={setCategories}
+            />
+          }
         />
         <Route
           path="/categories/edit/:id"
-          element={<CategoryFormPage categories={categories} setCategories={setCategories} />}
+          element={
+            <CategoryFormPage
+              categories={categories}
+              setCategories={setCategories}
+            />
+          }
         />
       </Routes>
     </BrowserRouter>

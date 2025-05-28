@@ -5,8 +5,8 @@ import HeaderComponent from "../components/HeaderComponent";
 function CategoryFormPage({ categories, setCategories }) {
   const navigate = useNavigate();
   const { id } = useParams();
-  const categoryId = parseInt(id);
-
+  
+  const categoryId = parseInt(id) || 0;
   const isEditing = categoryId !== 0;
 
   const [categoryName, setCategoryName] = useState("");
@@ -16,26 +16,42 @@ function CategoryFormPage({ categories, setCategories }) {
       const found = categories.find(cat => cat.cod === categoryId);
       if (found) {
         setCategoryName(found.nom);
+      } else {
+        alert("Categoría no encontrada. Redirigiendo a la lista de categorías.");
+        navigate("/categories");
       }
     } else {
       setCategoryName("");
     }
-  }, [categoryId, categories, isEditing]);
+  }, [categoryId, categories, isEditing, navigate]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    if (!categoryName.trim()) {
+      alert("El nombre de la categoría no puede estar vacío.");
+      return;
+    }
+
+    const isDuplicate = categories.some(
+      cat => cat.nom.toLowerCase() === categoryName.trim().toLowerCase() && cat.cod !== categoryId
+    );
+    if (isDuplicate) {
+      alert("Ya existe una categoría con ese nombre. Por favor, elige otro.");
+      return;
+    }
+
     if (isEditing) {
-      // Editar categoría existente
       const actualizadas = categories.map(cat =>
-        cat.cod === categoryId ? { ...cat, nom: categoryName } : cat
+        cat.cod === categoryId ? { ...cat, nom: categoryName.trim() } : cat
       );
       setCategories(actualizadas);
+      alert("Categoría actualizada correctamente!");
     } else {
-      // Crear nueva categoría
       const nuevoId = categories.length > 0 ? Math.max(...categories.map(c => c.cod)) + 1 : 1;
-      const nuevaCat = { cod: nuevoId, nom: categoryName };
+      const nuevaCat = { cod: nuevoId, nom: categoryName.trim() };
       setCategories([...categories, nuevaCat]);
+      alert("Nueva categoría creada correctamente!");
     }
 
     navigate("/categories");
@@ -49,7 +65,7 @@ function CategoryFormPage({ categories, setCategories }) {
     <>
       <HeaderComponent />
       <div className="container mt-3">
-        <h3>{isEditing ? "Editar Categoría" : "Nueva Categoría"}</h3>
+        <h3 className="mb-3">{isEditing ? "Editar Categoría" : "Nueva Categoría"}</h3>
         <form onSubmit={handleSubmit}>
           <div className="mb-3">
             <label htmlFor="categoryName" className="form-label">Nombre de la categoría</label>
@@ -58,13 +74,20 @@ function CategoryFormPage({ categories, setCategories }) {
               id="categoryName"
               className="form-control"
               value={categoryName}
+              // !!! AQUI ESTÁ LA MEJORA CLAVE: EL EVENTO ONCHANGE !!!
               onChange={(e) => setCategoryName(e.target.value)}
               required
             />
           </div>
           <div className="d-flex gap-2">
             <button type="submit" className="btn btn-primary">Guardar</button>
-            <button type="button" className="btn btn-secondary" onClick={handleCancel}>Cancelar</button>
+            <button
+              type="button"
+              className="btn btn-secondary"
+              onClick={handleCancel}
+            >
+              Cancelar
+            </button>
           </div>
         </form>
       </div>

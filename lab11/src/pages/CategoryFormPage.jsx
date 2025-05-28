@@ -38,6 +38,11 @@ function CategoryFormPage({ categories, setCategories }) {
       setCategories([...categories, nuevaCat]);
     }
 
+    console.log("Enviado", {
+      cod: isEditing ? categoryId : nuevoId,
+      nom: categoryName,
+    });
+
     navigate("/categories");
   };
 

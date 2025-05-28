@@ -112,6 +112,15 @@ function SerieFormPage({ series, setSeries }) {
               </select>
             </div>
 
+            <div className="mb-3">
+              <label htmlFor="inputImage" className="form-label">Imagen</label>
+              <input
+                type="file"
+                className="form-control"
+                id="inputImage"
+              />
+            </div>
+
             <div className="mb-3 d-flex gap-2">
               <button className="btn btn-primary" type="submit">Guardar</button>
               <button className="btn btn-secondary" type="button" onClick={handleCancel}>Cancelar</button>

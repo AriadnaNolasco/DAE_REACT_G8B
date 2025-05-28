@@ -50,22 +50,7 @@ export const nowPlayingMovies = {
             vote_average: 7.28,
             vote_count: 1758
         },
-        {
-            adult: false,
-            backdrop_path: "/e3gVl1gnpP7B0ZyLkfpjF4ZB1xT.jpg",
-            genre_ids: [28, 53],
-            id: 980489,
-            original_language: "en",
-            original_title: "Gran Turismo",
-            overview: "The true story of a gamer who became a professional racer through a series of video game competitions.",
-            popularity: 1234.56,
-            poster_path: "/51tqzRtKMMZEYUpSYkrUE7v9ehm.jpg",
-            release_date: "2023-08-09",
-            title: "Gran Turismo",
-            video: false,
-            vote_average: 7.6,
-            vote_count: 2700
-        },
+        
         {
             adult: false,
             backdrop_path: "/bQXAqRx2Fgc46uCVWgoPz5L5Dtr.jpg",

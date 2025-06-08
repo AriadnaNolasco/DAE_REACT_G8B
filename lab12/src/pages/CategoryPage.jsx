@@ -8,24 +8,22 @@ function CategoryPage() {
   const [categories, setCategories] = useState([]);
 
   const loadData = async () => {
-    try {
-      const response = await axios.get(urlApi);
-      setCategories(response.data);
-    } catch (error) {
-      console.error("Error al cargar categorías:", error);
-    }
+    const resp = await axios.get(urlApi);
+    console.log(resp.data);
+    setCategories(resp.data);
   };
 
   useEffect(() => {
     loadData();
   }, []);
 
-  const handleDelete = (codigo) => {
-    const confirmar = window.confirm("¿Estás seguro de eliminar esta categoría?");
-    if (confirmar) {
-      const actualizadas = categories.filter(cat => cat.cod !== codigo);
-      setCategories(actualizadas);
+  const handleDelete = async(id) => {
+    if (window.confirm("Estas seguro de eliminar este registro?")) {
+      await axios.delete(`${urlApi}${id}/`);
+      const nLista = categories.filter(item=>item.id!=id);
+      setCategories(nLista);
     }
+    
   };
 
   return (
@@ -49,26 +47,21 @@ function CategoryPage() {
           </thead>
           <tbody>
             {categories.map((item) => (
-              <tr key={item.cod}>
-                <td>{item.nom}</td>
-                <td className="text-center">{item.cod}</td>
+              <tr key={item.id}>
+                <td>{item.description}</td>
+                <td className="text-center">{item.id}</td>
                 <td className="text-center">
-                  <NavLink
-                    to={`/categories/edit/${item.cod}`}
-                    className="btn btn-secondary me-2 btn-sm"
-                  >
+                  <button className="btn btn-secondary me-2 btn-sm">
                     <i className="bi bi-pencil-square"></i>
-                  </NavLink>
-                  <button
-                    className="btn btn-danger btn-sm"
-                    onClick={() => handleDelete(item.cod)}
-                  >
+                  </button>
+                  <button onclick = {() => handleDelete(item.id)} className="btn btn-danger btn-sm">
                     <i className="bi bi-trash-fill"></i>
                   </button>
                 </td>
               </tr>
             ))}
           </tbody>
+
         </table>
       </div>
     </>
